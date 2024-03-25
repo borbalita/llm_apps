@@ -1,9 +1,22 @@
-from typing import Optional
+from typing import List, Optional
 
 from app.chat.vectore_stores.pinecone import pinecone_vs
+from langchain.chains.summarize import load_summarize_chain
+from langchain.chat_models import ChatOpenAI
 from langchain.document_loaders import PyPDFLoader
 from langchain.text_splitter import RecursiveCharacterTextSplitter, TextSplitter
 from langchain.vectorstores import VectorStore
+from langchain_core.documents import Document
+
+
+def get_summary(docs: List[Document]) -> list[Document]:
+    # Use a large context model like gpt-3.5-turbo-1106 (16k token)
+    # or Anthropic Claude-2 (100k)
+    llm = ChatOpenAI(temperature=0, model_name='gpt-3.5-turbo-1106')    
+    chain = load_summarize_chain(llm, chain_type='stuff')
+    summary = Document(page_content=chain.run(docs))
+    summary.metadata['page'] = 'summary'
+    return Document(page_content=summary)
 
 
 class PDFEmbedder:
@@ -41,6 +54,7 @@ class PDFEmbedder:
         """
         loader = PyPDFLoader(pdf_path)
         docs = loader.load_and_split(self.text_splitter)
+        docs.append(get_summary(docs))
 
         for doc in docs:
             doc.metadata = {
