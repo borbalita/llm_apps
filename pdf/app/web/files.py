@@ -1,16 +1,16 @@
 import json
 import os
-import requests
 import tempfile
-from typing import Tuple, Dict, Any
-from app.web.config import Config
+from typing import Dict, Tuple
 
-upload_url = f"{Config.UPLOAD_URL}/upload"
+import requests
+from app.web.config import Config
 
 
 def upload(local_file_path: str) -> Tuple[Dict[str, str], int]:
     with open(local_file_path, "rb") as f:
-        response = requests.post(upload_url, files={"file": f})
+        response = requests.post(
+            f"{Config.UPLOAD_URL}/upload", files={"file": f})
         return json.loads(response.text), response.status_code
 
 

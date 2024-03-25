@@ -1,6 +1,13 @@
-from flask import Blueprint, g, request, session, jsonify
-from werkzeug.security import check_password_hash, generate_password_hash
+"""
+This module contains the views for authentication-related endpoints of the
+web application.
+
+The views in this module handle user authentication, including signing up,
+signing in, and signing out.
+"""
 from app.web.db.models import User
+from flask import Blueprint, g, jsonify, request, session
+from werkzeug.security import check_password_hash, generate_password_hash
 
 bp = Blueprint("auth", __name__, url_prefix="/api/auth")
 
