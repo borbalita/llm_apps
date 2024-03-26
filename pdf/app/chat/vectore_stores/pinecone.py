@@ -17,5 +17,9 @@ pinecone_vs = Pinecone.from_existing_index(
 
 
 def build_retriever(chat_args: ChatArgs):
-    search_kwargs = {'filter': {'pdf_id': chat_args.pdf_id}}
+    if chat_args.pdf_id is None:
+        search_kwargs = {'filter': {'page': 'summary'}}
+    else:
+        search_kwargs = {'filter': {'pdf_id': chat_args.pdf_id}}
+
     return pinecone_vs.as_retriever(search_kwargs=search_kwargs)
