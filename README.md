@@ -12,9 +12,9 @@ The `sql-qa-assistant` subproject provides a Question-Answering (QA) interface t
 
 The `code-test-generator` subproject generates code snippets and corresponding tests based on user-provided tasks and programming languages. It uses an OpenAI language model to generate the code and tests.
 
-### [Other Subproject]
+### PDF Project
 
-The `[other-subproject]` subproject does [description of what the subproject does]. It uses an OpenAI language model to [description of how it uses the language model].
+The `pdf-project` subproject is a web application designed to provide a semantic search interface for PDF documents. Users can upload PDFs, perform semantic searches within these PDFs, and interact with an OpenAI language model (LLM) through a chat window to ask questions about the content of the PDFs.
 
 ## Getting Started
 
