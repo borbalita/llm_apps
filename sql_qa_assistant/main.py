@@ -1,5 +1,4 @@
 from dotenv import load_dotenv
-from handlers.chat_model import ChatModelStartHandler
 from langchain.agents import AgentExecutor, OpenAIFunctionsAgent
 from langchain.chat_models import ChatOpenAI
 from langchain.memory import ConversationBufferMemory
@@ -9,6 +8,7 @@ from langchain.prompts import (
     MessagesPlaceholder,
 )
 from langchain.schema import SystemMessage
+from tools.report import get_write_report_tool
 from tools.sql import get_describe_tables_tool, get_run_query_tool, list_tables
 
 if __name__ == '__main__':
@@ -43,7 +43,8 @@ if __name__ == '__main__':
 
     tools = [
         get_run_query_tool(),
-        get_describe_tables_tool()
+        get_describe_tables_tool(),
+        get_write_report_tool()
     ]
 
     agent = OpenAIFunctionsAgent(
@@ -59,4 +60,7 @@ if __name__ == '__main__':
         memory=memory
     )
 
-    agent_executor('How many orders are out there?')
+    agent_executor('How many orders are out there? '
+                   'Please put the results into a report.')
+
+    agent_executor('Now do the same for users.')
