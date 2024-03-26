@@ -1,4 +1,5 @@
 from dotenv import load_dotenv
+from handlers.chat_model import ChatModelStartHandler
 from langchain.agents import AgentExecutor, OpenAIFunctionsAgent
 from langchain.chat_models import ChatOpenAI
 from langchain.memory import ConversationBufferMemory
@@ -14,7 +15,11 @@ from tools.sql import get_describe_tables_tool, get_run_query_tool, list_tables
 if __name__ == '__main__':
     load_dotenv()
 
-    chat = ChatOpenAI()
+    handler = ChatModelStartHandler()
+
+    chat = ChatOpenAI(
+        callbacks=[handler]
+    )
 
     memory = ConversationBufferMemory(
         memory_key='chat_history',
