@@ -1,3 +1,18 @@
+# PDF Project
+
+The `pdf-project` is a web application designed to provide a semantic search interface for PDF documents. Users can upload PDFs, perform semantic searches within these PDFs, and interact with an OpenAI language model (LLM) through a chat window to ask questions about the content of the PDFs.
+
+## Features
+
+- **PDF Upload**: Users can upload PDF documents to the application. The content of these documents is then indexed for semantic search.
+
+- **Semantic Search**: Users can perform semantic searches within the uploaded PDFs. The search results are ranked based on their semantic relevance to the search query.
+
+- **Chat Interface**: The application includes a chat window where users can converse with an LLM about the content of the PDFs. The LLM can answer questions, provide summaries, and offer insights based on the content of the PDFs.
+
+- **Feedback Mechanism**: Users can provide feedback on the LLM's responses through a like/dislike system. This feedback can be used to improve the performance of the LLM over time.
+
+
 # First Time Setup
 
 ## Using Pipenv [Recommended]
