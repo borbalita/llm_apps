@@ -1,8 +1,9 @@
-from app.chat.chains.streamable import StreamingConversationalRetrievalChain
-from app.chat.llms.chat_openai import build_llm
-from app.chat.memories.sql import build_memory
+from langchain.chains import ConversationalRetrievalChain
+from langchain.chat_models import ChatOpenAI
+
+from app.chat.memories.sql_memory import sql_memory
 from app.chat.models import ChatArgs
-from app.chat.vectore_stores.pinecone import build_retriever
+from app.chat.vector_stores.pinecone import pinecone_retriever
 
 
 def build_chat(chat_args: ChatArgs):
@@ -16,11 +17,8 @@ def build_chat(chat_args: ChatArgs):
 
         chain = build_chat(chat_args)
     """
-    retriever = build_retriever(chat_args)
-    llm = build_llm(chat_args)
-    memory = build_memory(chat_args)
-    return StreamingConversationalRetrievalChain.from_llm(
-        llm=llm,
-        memory=memory,
-        retriever=retriever
+    return ConversationalRetrievalChain.from_llm(
+        llm=ChatOpenAI(),
+        memory=sql_memory(chat_args),
+        retriever=pinecone_retriever(chat_args),
     )
