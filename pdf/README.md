@@ -12,7 +12,6 @@ The `pdf-project` is a web application designed to provide a semantic search int
 
 - **Feedback Mechanism**: Users can provide feedback on the LLM's responses through a like/dislike system. This feedback can be used to improve the performance of the LLM over time.
 
-
 # First Time Setup
 
 ## Using Pipenv [Recommended]
@@ -85,6 +84,15 @@ Then:
 ```
 inv devworker
 ```
+
+### To run a local file-upload server.
+
+- Go to the file_upload folder
+- Install dependencies with `pip install -r requirements.txt`
+- Start the server with `python app.py`
+- In the `pdf` project, find the `.env` file and change the `UPLOAD_URL` line to the following: `UPLOAD_URL=http://localhost:8050`
+- Restart the PDF project
+
 
 ### To run Redis
 

@@ -1,8 +1,8 @@
-from app.chat.chat import build_chat
-from app.chat.models import ChatArgs
+from flask import Blueprint, Response, g, jsonify, request, stream_with_context
+
+from app.chat import ChatArgs, build_chat
 from app.web.db.models import Conversation, Pdf
 from app.web.hooks import load_model, login_required
-from flask import Blueprint, Response, g, jsonify, request, stream_with_context
 
 bp = Blueprint("conversation", __name__, url_prefix="/api/conversations")
 
@@ -45,13 +45,9 @@ def create_message(conversation):
 
     chat = build_chat(chat_args)
 
-    if not chat:
-        return "Chat not yet implemented!"
-
     if streaming:
         return Response(
-            stream_with_context(chat.stream(input)),
-            mimetype="text/event-stream"
+            stream_with_context(chat.stream(input)), mimetype="text/event-stream"
         )
     else:
         return jsonify({"role": "assistant", "content": chat.run(input)})
