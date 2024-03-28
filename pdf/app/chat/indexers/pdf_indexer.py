@@ -10,7 +10,7 @@ class PDFIndexer:
     def __init__(
             self, text_splitter: Optional[TextSplitter] = None,
             loader: Optional[Any] = None
-        ):
+            ):
         if loader is None:
             self.loader = PyPDFLoader
         else:
